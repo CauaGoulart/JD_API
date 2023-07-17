@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { UserServiceService } from '../services/user-service.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from '../models/user';
 
 @Component({
@@ -7,54 +6,34 @@ import { User } from '../models/user';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit {
+  @Output() addUserEvent = new EventEmitter<User>();
   public user: User = {
     id: 0,
-    name: "",
-    email: "",
-    password: "",
-    roles: ""
+    name: '',
+    email: '',
+    password: '',
+    roles: ''
   };
 
-  constructor(private service: UserServiceService) { }
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 
   public addUser() {
-    if (this.service.editar == false) {
-      const novoUser: User = {
-        id: 0,
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.password,
-        roles: this.user.roles
-      };
-      this.service.adiciona(novoUser);
-      this.limparFormulario();
-    } else if (this.service.editar == true) {
-      const novoUser: User = {
-        id: this.user.id,
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.password,
-        roles: this.user.roles
-      };
-      this.service.update(novoUser);
-      this.limparFormulario();
-    }
+    this.addUserEvent.emit(this.user);
+    this.limparFormulario();
   }
 
   public limparFormulario() {
     this.user = {
       id: 0,
-      name: "",
-      email: "",
-      password: "",
-      roles: ""
+      name: '',
+      email: '',
+      password: '',
+      roles: ''
     };
   }
-
-  ngOnInit(): void {
-    this.service.Userselecionado.subscribe(user => {
-      this.user = user;
-    });
-  }
 }
+

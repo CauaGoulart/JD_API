@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { UserServiceService } from '../services/user-service.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../models/user';
 
 @Component({
@@ -7,23 +6,20 @@ import { User } from '../models/user';
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.scss']
 })
-export class UserTableComponent {
-  public users!: User[];
+export class UserTableComponent implements OnInit {
+  @Input() users: User[] = [];
 
-  constructor(private service: UserServiceService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.users = this.service.getLista();
   }
 
-
-  public deleteItem(event: number) {
-    this.service.deleteItem(event);
+  public deleteItem(index: number) {
+    this.users.splice(index, 1);
   }
 
-  public setUserselecionado(user: any) {
-    this.service.setUserselecionado(user);
-
+  public setUserSelecionado(user: User) {
+    console.log(user); // Faça o que for necessário com o usuário selecionado
   }
-
 }
+

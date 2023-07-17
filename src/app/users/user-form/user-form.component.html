@@ -5,7 +5,7 @@
     <div class="form-input">
         <label for="name">Nome:</label>
         <input id="name" [(ngModel)]="user.name">
-        <button class="filter">Filtrar</button>
+        <button class="filter" (click)="sendFilterName()">Filtrar</button>
     </div>
 
     <div class="form-input">
@@ -24,4 +24,5 @@
     <br>
 
     <button class="save" (click)="addUser()">Salvar</button>
+    <app-user-table [users]="users"></app-user-table>
 </div>
