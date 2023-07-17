@@ -1,0 +1,24 @@
+<div class="tabela">
+    <table border="1" cellSpacing="0" width="70%">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Permissão</th>
+            <th>Ações</th>
+        </tr>
+        <tr *ngFor="let user of users; let i = index">
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.roles}}</td>
+            <td [ngClass]="{ 'popular': user.roles.length == 3, 'luxo': user.roles.length == 4}">
+                <button class="editar" (click)="setUserselecionado(user)">
+                    editar
+                </button>
+                <button class="deletar" (click)="deleteItem(i)">
+                    deletar
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</div>

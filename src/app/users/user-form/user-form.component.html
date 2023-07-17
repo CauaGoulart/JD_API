@@ -1,0 +1,27 @@
+<div>
+
+    <h1>Cadastro de usuarios</h1>
+
+    <div class="form-input">
+        <label for="name">Nome:</label>
+        <input id="name" [(ngModel)]="user.name">
+        <button class="filter">Filtrar</button>
+    </div>
+
+    <div class="form-input">
+        <label for="email">E-mail:</label>
+        <input id="email" [(ngModel)]="user.email">
+    </div>
+
+    <div class="form-input">
+        <label for="senha">Senha:</label>
+        <input id="senha" type="password" [(ngModel)]="user.password">
+    </div>
+
+
+    <input class="input" type="radio" name="tipo_user" value="Adm" [(ngModel)]="user.roles">Adm
+    <input class="input" type="radio" name="tipo_user" value="User" [(ngModel)]="user.roles">User
+    <br>
+
+    <button class="save" (click)="addUser()">Salvar</button>
+</div>
