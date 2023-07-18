@@ -10,7 +10,7 @@
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
             <td>{{user.roles}}</td>
-            <td [ngClass]="{ 'popular': user.roles.length == 3, 'luxo': user.roles.length == 4}">
+            <td>
                 <button class="editar" (click)="setUserselecionado(user)">
                     editar
                 </button>
