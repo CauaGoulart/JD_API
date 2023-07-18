@@ -8,11 +8,12 @@ import { MenusModule } from './menus/menus.module';
 import { UsersModule } from './users/users.module';
 
 import { HttpClientModule } from '@angular/common/http';
+import { PaisesModule } from './paises/paises.module';
 @NgModule({
   declarations: [
     AppComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, HomeModule, MenusModule, UsersModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, HomeModule, MenusModule, UsersModule, PaisesModule],
   providers: [],
   bootstrap: [AppComponent],
 })

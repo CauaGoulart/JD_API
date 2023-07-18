@@ -8,38 +8,21 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  public user: User = {
-    id: 0,
-    name: "",
-    email: "",
-    password: "",
-    roles: ""
-  };
+  public users!: User[];
+  public user = {} as User;
 
   constructor(private service: UserService) { }
 
   public addUser() {
-    if (this.service.editar == false) {
-      const novoUser: User = {
-        id: 0,
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.password,
-        roles: this.user.roles
-      };
-      this.service.adiciona(novoUser);
-      this.limparFormulario();
-    } else if (this.service.editar == true) {
-      const novoUser: User = {
-        id: this.user.id,
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.password,
-        roles: this.user.roles
-      };
-      this.service.update(novoUser);
-      this.limparFormulario();
-    }
+    this.service.adiciona(this.user).subscribe((data) => {
+
+    })
+  }
+
+  public updateUser() {
+    this.service.update(this.user).subscribe((data) => {
+
+    })
   }
 
   public limparFormulario() {

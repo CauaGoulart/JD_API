@@ -1,0 +1,13 @@
+<div>
+
+    <h1>Cadastro de Pais</h1>
+
+    <div class="form-input">
+        <label for="name">Nome:</label>
+        <input id="name" [(ngModel)]="country.name">
+        <button class="filter" (click)="getCountrysByName(country.name)">Filtrar</button>
+    </div>
+    <br>
+
+    <button class="save" (click)="addCountry()">Salvar</button>
+</div>

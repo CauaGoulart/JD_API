@@ -9,19 +9,28 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserTableComponent implements OnInit {
   public users!: User[];
-  public filteredUsers: User[] = [];
 
   constructor(private service: UserService) { }
 
   ngOnInit(): void {
     this.service.getUsers().subscribe((data) => {
       this.users = data;
-    })
+    });
+
+    this.service.updateTableEvent.subscribe(() => {
+      this.service.getUsers().subscribe((data) => {
+        this.users = data;
+      });
+    });
   }
 
 
-  public deleteItem(event: number) {
-    this.service.deleteItem(event);
+  public deleteItem(user: User) {
+    this.service.deleteItem(user).subscribe(() => {
+      this.service.getUsers().subscribe((data) => {
+        this.users = data;
+      });
+    });
   }
 
   public setUserselecionado(user: any) {
@@ -29,12 +38,5 @@ export class UserTableComponent implements OnInit {
 
   }
 
-  public filterUsersByName(name: string) {
-    if (name) {
-      this.filteredUsers = this.users.filter(user => user.name.toLowerCase().includes(name.toLowerCase()));
-    } else {
-      this.filteredUsers = this.users;
-    }
-  }
 }
 
