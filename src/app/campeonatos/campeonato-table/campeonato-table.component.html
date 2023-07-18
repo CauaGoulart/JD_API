@@ -2,15 +2,17 @@
     <table border="1" cellSpacing="0" width="80%">
         <tr>
             <th>Nome</th>
+            <th>Ano</th>
             <th>Ações</th>
         </tr>
-        <tr *ngFor="let e of equipes; let i = index">
-            <td>{{e.name}}</td>
+        <tr *ngFor="let c of campeonatos; let i = index">
+            <td>{{c.descricao}}</td>
+            <td>{{c.ano}}</td>
             <td>
-                <button class="editar" (click)="setEquipeselecionada(e)">
+                <button class="editar" (click)="setCampeonatoselecionado(c)">
                     editar
                 </button>
-                <button class="deletar" (click)="deleteItem(e)">
+                <button class="deletar" (click)="deleteItem(c)">
                     deletar
                 </button>
             </td>

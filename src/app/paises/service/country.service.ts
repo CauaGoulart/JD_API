@@ -12,7 +12,7 @@ export class CountryService {
   public Countryselecionado = new EventEmitter<Pais>();
   public updateTableEvent = new EventEmitter<void>();
   private paises: Pais[] = [];
-  private usersSubject = new Subject<Pais[]>();
+  private paisSubject = new Subject<Pais[]>();
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,13 +22,13 @@ export class CountryService {
 
   getCountry(): Observable<Pais[]> {
     this.http.get<Pais[]>(this.urlBase)
-      .subscribe(users => this.usersSubject.next(users));
-    return this.usersSubject.asObservable();
+      .subscribe(paises => this.paisSubject.next(paises));
+    return this.paisSubject.asObservable();
   }
 
-  private setUsers(users: Pais[]) {
-    this.paises = users;
-    this.usersSubject.next(users);
+  private setUsers(paises: Pais[]) {
+    this.paises = paises;
+    this.paisSubject.next(paises);
   }
 
   public adiciona(user: Pais): Observable<Pais> {
@@ -61,7 +61,7 @@ export class CountryService {
   public getCountrysByName(name: string): Observable<Pais[]> {
     let url = `${this.urlBase}/name/${name}`;
     this.http.get<Pais[]>(url)
-      .subscribe(users => this.usersSubject.next(users));
-    return this.usersSubject.asObservable();
+      .subscribe(paises => this.paisSubject.next(paises));
+    return this.paisSubject.asObservable();
   }
 }

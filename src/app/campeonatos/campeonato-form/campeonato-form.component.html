@@ -1,0 +1,18 @@
+<div>
+
+    <h1>Cadastro de Usuarios</h1>
+
+    <div class="form-input">
+        <label for="name">Nome:</label>
+        <input id="name" [(ngModel)]="campeonato.descricao">
+        <button class="filter" (click)="getCampeonatosByName(campeonato.descricao)">Filtrar</button>
+    </div>
+
+    <div class="form-input">
+        <label for="email">E-mail:</label>
+        <input id="email" [(ngModel)]="campeonato.ano">
+    </div>
+    <br>
+
+    <button class="save" (click)="addCampeonato()">Salvar</button>
+</div>

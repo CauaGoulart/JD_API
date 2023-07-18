@@ -1,1 +1,13 @@
-<p>equipe-form works!</p>
+<div>
+
+    <h1>Cadastro de Euipe</h1>
+
+    <div class="form-input">
+        <label for="name">Nome:</label>
+        <input id="name" [(ngModel)]="equipe.name">
+        <button class="filter" (click)="getEquipeByName(equipe.name)">Filtrar</button>
+    </div>
+    <br>
+
+    <button class="save" (click)="addEquipe()">Salvar</button>
+</div>
