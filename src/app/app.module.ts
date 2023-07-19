@@ -10,11 +10,12 @@ import { UsersModule } from './users/users.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PaisesModule } from './paises/paises.module';
 import { EquipesModule } from './equipes/equipes.module';
+import { CampeonatosModule } from './campeonatos/campeonatos.module';
 @NgModule({
   declarations: [
     AppComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, HomeModule, MenusModule, UsersModule, PaisesModule, EquipesModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, HomeModule, MenusModule, UsersModule, PaisesModule, EquipesModule, CampeonatosModule],
   providers: [],
   bootstrap: [AppComponent],
 })

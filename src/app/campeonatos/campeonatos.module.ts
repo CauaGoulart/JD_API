@@ -14,7 +14,10 @@ import { FormsModule } from '@angular/forms';
     CampeonatoTableComponent
   ],
   imports: [
-    CommonModule,FormsModule
+    CommonModule, FormsModule
+  ],
+  exports: [
+    CampeonatoComponent
   ]
 })
 export class CampeonatosModule { }

@@ -58,7 +58,7 @@ export class EquipeService {
     this.editar = true;
   }
 
-  public getCountrysByName(name: string): Observable<Equipe[]> {
+  public getEquipeByName(name: string): Observable<Equipe[]> {
     let url = `${this.urlBase}/name/${name}`;
     this.http.get<Equipe[]>(url)
       .subscribe(equipes => this.equipesSubject.next(equipes));

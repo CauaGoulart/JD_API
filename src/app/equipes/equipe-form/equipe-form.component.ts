@@ -41,7 +41,7 @@ export class EquipeFormComponent {
   }
 
   ngOnInit(): void {
-    this.service.Equipeselecionado.subscribe(equipe => {
+    this.service.Equipeselecionada.subscribe(equipe => {
       this.equipe = equipe;
     });
   }
