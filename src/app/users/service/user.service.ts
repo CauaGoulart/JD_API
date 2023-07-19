@@ -22,6 +22,11 @@ export class UserService {
     , responseType: 'text' as 'json'
   }
 
+  private httpOptions2 = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": this.globalService.token })
+    , responseType: 'text' as 'json'
+  }
+
   private getToken() {
     this.globalService.getToken("miles@gmail.com", "123");
     console.log(this.globalService.token);
