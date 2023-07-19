@@ -1,0 +1,42 @@
+<div>
+
+    <h1>Cadastro de Pista</h1>
+
+    <div class="form-input">
+        <label for="name">Nome:</label>
+        <input id="name" [(ngModel)]="pista.nome">
+        <button class="filter" (click)="getPistaByName(pista.nome)">Filtrar</button>
+    </div>
+    <br>
+    <div class="form-input">
+        <label for="name">Tamanho:</label>
+        <input id="name" type="number" [(ngModel)]="pista.tamanho">
+        <button class="filter" (click)="Filtrar()">Filtrar</button>
+    </div>
+
+    <div *ngIf="filtrar">
+        <div class="form-input">
+            <label for="tamInicial">Tamanho Inicial:</label>
+            <input id="tamInicial" type="number" [(ngModel)]="tamInicial">
+        </div>
+
+        <div class="form-input">
+            <label for="tamFinal">Tamanho Final:</label>
+            <input id="tamFinal" type="number" [(ngModel)]="tamFinal">
+        </div>
+        <button class="filter" (click)="getPistasByTamanho(tamInicial,tamFinal)">Buscar por Tamanho</button>
+
+        <br>
+    </div>
+    <br>
+    <div class="form-input">
+        <label for="pais">País:</label>
+        <select id="pais" [(ngModel)]="paisSelecionado" name="pais" (change)="paisId = paisSelecionado?.id ?? null">
+            <option *ngFor="let pais of paises" [ngValue]="pais">{{ pais.name }}</option>
+        </select>
+        <button class="filter" (click)="getPistasByPais()">Filtrar</button>
+
+    </div>
+
+    <button class="save" (click)="insert()">Salvar</button>
+</div>

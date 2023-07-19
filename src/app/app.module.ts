@@ -11,11 +11,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { PaisesModule } from './paises/paises.module';
 import { EquipesModule } from './equipes/equipes.module';
 import { CampeonatosModule } from './campeonatos/campeonatos.module';
+import { PistasModule } from './pistas/pistas.module';
 @NgModule({
   declarations: [
     AppComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, HomeModule, MenusModule, UsersModule, PaisesModule, EquipesModule, CampeonatosModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    HomeModule,
+    MenusModule,
+    UsersModule,
+    PaisesModule,
+    EquipesModule,
+    CampeonatosModule,
+    PistasModule],
   providers: [],
   bootstrap: [AppComponent],
 })

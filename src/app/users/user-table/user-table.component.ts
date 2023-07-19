@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../models/user';
-import { UserService } from 'src/app/service/user.service';
+import { UserService } from 'src/app/users/service/user.service';
 
 @Component({
   selector: 'app-user-table',
@@ -10,9 +10,12 @@ import { UserService } from 'src/app/service/user.service';
 export class UserTableComponent implements OnInit {
   public users!: User[];
 
+
   constructor(private service: UserService) { }
 
   ngOnInit(): void {
+
+
     this.service.getUsers().subscribe((data) => {
       this.users = data;
     });
@@ -21,7 +24,9 @@ export class UserTableComponent implements OnInit {
       this.service.getUsers().subscribe((data) => {
         this.users = data;
       });
-    });
+
+    })
+
   }
 
 

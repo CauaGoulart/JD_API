@@ -26,11 +26,6 @@ export class CountryService {
     return this.paisSubject.asObservable();
   }
 
-  private setUsers(paises: Pais[]) {
-    this.paises = paises;
-    this.paisSubject.next(paises);
-  }
-
   public adiciona(user: Pais): Observable<Pais> {
     return this.http.post<Pais>(this.urlBase, user, this.httpOptions).pipe(
       tap(() => {

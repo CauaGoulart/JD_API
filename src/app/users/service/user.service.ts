@@ -1,7 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { User } from '../users/models/user';
+import { User } from '../models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
+import { GlobalService } from 'src/app/global.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +15,24 @@ export class UserService {
   private users: User[] = [];
   private usersSubject = new Subject<User[]>();
 
+  constructor(private http: HttpClient, private globalService: GlobalService) { }
+
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    , responseType: 'text' as 'json'
   }
 
-  constructor(private http: HttpClient) { }
+  private getToken() {
+    this.globalService.getToken("miles@gmail.com", "123");
+    console.log(this.globalService.token);
+
+  }
 
   getUsers(): Observable<User[]> {
-    this.http.get<User[]>(this.urlBase)
+
+    this.http.get<User[]>(this.urlBase, this.httpOptions)
       .subscribe(users => this.usersSubject.next(users));
     return this.usersSubject.asObservable();
-  }
-
-  private setUsers(users: User[]) {
-    this.users = users;
-    this.usersSubject.next(users);
   }
 
   public adiciona(user: User): Observable<User> {
