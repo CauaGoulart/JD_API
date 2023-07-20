@@ -62,7 +62,7 @@ export class CorridaService {
     return this.http.delete<void>(`${this.urlBase}/${corrida.id}`, this.httpOptions);
   }
 
-  public setCorridaselecionado(corrida: Corrida) {
+  public setCorridaselecionada(corrida: Corrida) {
     this.Corridaselecionado.emit(corrida);
     this.editar = true;
   }

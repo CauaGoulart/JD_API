@@ -8,37 +8,37 @@ import { PilotoService } from '../../service/piloto.service';
   styleUrls: ['./piloto-table.component.scss']
 })
 export class PilotoTableComponent implements OnInit {
-  public pistas!: Piloto[];
+  public pilotos!: Piloto[];
 
   constructor(private service: PilotoService) { }
 
   ngOnInit(): void {
     this.service.listAll().subscribe((data) => {
-      this.pistas = data;
+      this.pilotos = data;
     });
 
     this.service.updateTableEvent.subscribe(() => {
       this.service.listAll().subscribe((data) => {
-        this.pistas = data;
+        this.pilotos = data;
       });
     });
 
-    this.service.getPilotosSubject().subscribe((pistas) => {
-      this.pistas = pistas;
+    this.service.getPilotosSubject().subscribe((pilotos) => {
+      this.pilotos = pilotos;
     });
   }
 
 
-  public deleteItem(pista: Piloto) {
-    this.service.deleteItem(pista).subscribe(() => {
+  public deleteItem(piloto: Piloto) {
+    this.service.deleteItem(piloto).subscribe(() => {
       this.service.listAll().subscribe((data) => {
-        this.pistas = data;
+        this.pilotos = data;
       });
     });
   }
 
-  public setPilotoselecionado(pista: any) {
-    this.service.setPilotoselecionado(pista);
+  public setPilotoselecionado(piloto: any) {
+    this.service.setPilotoselecionado(piloto);
 
   }
 

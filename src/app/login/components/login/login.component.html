@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div class="container">
+
+    <h1>Login</h1>
+
+    <div class="form-input">
+        <label for="email">E-mail:</label>
+        <input id="email" [(ngModel)]="user.email">
+    </div>
+
+    <div class="form-input">
+        <label for="senha">Senha:</label>
+        <input id="senha" type="password" [(ngModel)]="user.password">
+    </div>
+    <br>
+
+    <button class="save" (click)="loginUser()">Logar</button>
+</div>

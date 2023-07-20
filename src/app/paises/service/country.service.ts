@@ -20,8 +20,16 @@ export class CountryService {
 
   constructor(private http: HttpClient) { }
 
+  private getHttpOptions(): { headers: HttpHeaders } {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+  }
+
   listAll(): Observable<Pais[]> {
-    this.http.get<Pais[]>(this.urlBase)
+    this.http.get<Pais[]>(this.urlBase, this.getHttpOptions())
       .subscribe(paises => this.paisSubject.next(paises));
     return this.paisSubject.asObservable();
   }

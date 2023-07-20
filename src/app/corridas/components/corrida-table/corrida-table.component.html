@@ -1,1 +1,24 @@
-<p>corrida-table works!</p>
+<div class="tabela">
+    <table border="1" cellSpacing="0" width="80%">
+        <tr>
+            <th>Data</th>
+            <th>Pista</th>
+            <th>Campeonato</th>
+            <th>Ações</th>
+        </tr>
+        <tr *ngFor="let c of corridas; let i = index">
+            <td>{{c.data}}</td>
+            <td>{{c.pista.nome}}</td>
+            <td>{{c.campeonato.descricao}}</td>
+            <td>
+                <button class="editar" (click)="setCorridaselecionada(c)">
+                    editar
+                </button>
+                <button class="deletar" (click)="deleteItem(c)">
+                    deletar
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</div>

@@ -14,6 +14,8 @@ import { CampeonatosModule } from './campeonatos/campeonatos.module';
 import { PistasModule } from './pistas/pistas.module';
 import { PilotosModule } from './pilotos/pilotos.module';
 import { CorridasModule } from './corridas/corridas.module';
+import { LoginModule } from './login/login.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,8 @@ import { CorridasModule } from './corridas/corridas.module';
     CampeonatosModule,
     PistasModule,
     PilotosModule,
-    CorridasModule  
+    CorridasModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent],

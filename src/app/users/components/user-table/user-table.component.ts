@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { UserService } from 'src/app/users/service/user.service';
+import { LoginService } from 'src/app/login/service/login.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user-table',
@@ -11,11 +13,12 @@ export class UserTableComponent implements OnInit {
   public users!: User[];
 
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService, private loginService: LoginService) { }
 
   ngOnInit(): void {
-
-    this.service.listAll().subscribe((data) => {
+    this.loginService.getTokenObservable('miles@gmail.com', '123').pipe(
+      switchMap(() => this.service.listAll())
+    ).subscribe((data) => {
       this.users = data;
     });
 
@@ -23,10 +26,9 @@ export class UserTableComponent implements OnInit {
       this.service.listAll().subscribe((data) => {
         this.users = data;
       });
-
-    })
-
+    });
   }
+
 
 
   public deleteItem(user: User) {

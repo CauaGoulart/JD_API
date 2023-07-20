@@ -16,10 +16,11 @@
         </select>
         <button class="filter" (click)="getPilotosByPais()">Filtrar</button>
     </div>
-<br>
+    <br>
     <div class="form-input">
         <label for="equipe">Equipes:</label>
-        <select id="equipe" [(ngModel)]="paisSelecionado" name="equipe" (change)="equipeId = equipeSelecionado?.id ?? null">
+        <select id="equipe" [(ngModel)]="equipeSelecionado" name="equipe"
+            (change)="equipeId = equipeSelecionado?.id ?? null">
             <option *ngFor="let equipe of equipes" [ngValue]="equipe">{{ equipe.name }}</option>
         </select>
         <button class="filter" (click)="getPilotosByEquipe()">Filtrar</button>

@@ -1,34 +1,43 @@
 <div>
 
     <h1>Cadastro de Corrida</h1>
-    
-<!--
-    <div class="form-input">
+
+
+    <!-- <div class="form-input">
         <label for="data">Data:</label>
         <input id="data" type="date" [(ngModel)]="dataCorrida">
-      </div>
-    <br>
+    </div>
+    <br> -->
 
-    
-    <div class="form-input">
+
+    <!-- <div class="form-input">
         <label for="pais">Pista:</label>
         <select id="pais" [(ngModel)]="pistaSelecionado" name="pais" (change)="pistaId = pistaSelecionado?.id ?? null">
             <option *ngFor="let pista of pistas" [ngValue]="pista">{{ pista.name }}</option>
         </select>
         <button class="filter" (click)="getPistasByPais()">Filtrar</button>
+
+    </div> -->
+
+    <br>
+
+    <div class="form-input">
+        <label for="pais">Pista:</label>
+        <select id="pais" [(ngModel)]="pistaSelecionado" name="pista" (change)="pistaId = pistaSelecionado?.id ?? null">
+            <option *ngFor="let pista of pistas" [ngValue]="pista">{{ pista.nome }}</option>
+        </select>
+        <button class="filter" (click)="getCorridasByPista()">Filtrar</button>
 
     </div>
 
-    <br>
-
     <div class="form-input">
-        <label for="pais">Pista:</label>
-        <select id="pais" [(ngModel)]="pistaSelecionado" name="pais" (change)="pistaId = pistaSelecionado?.id ?? null">
-            <option *ngFor="let pista of pistas" [ngValue]="pista">{{ pista.name }}</option>
+        <label for="pais">Campeonato:</label>
+        <select id="pais" [(ngModel)]="pistaSelecionado" name="pista" (change)="pistaId = pistaSelecionado?.id ?? null">
+            <option *ngFor="let pista of pistas" [ngValue]="pista">{{ pista.nome }}</option>
         </select>
-        <button class="filter" (click)="getPistasByPais()">Filtrar</button>
+        <button class="filter" (click)="getCorridasByPista()">Filtrar</button>
 
-    </div>-->
+    </div>
 
     <button class="save" (click)="insert()">Salvar</button>
 </div>

@@ -6,10 +6,10 @@
             <th>Equipe</th>
             <th>Ações</th>
         </tr>
-        <tr *ngFor="let p of pistas; let i = index">
+        <tr *ngFor="let p of pilotos; let i = index">
             <td>{{p.name}}</td>
-            <td>{{p.equipe.name}}</td>
             <td>{{p.pais.name}}</td>
+            <td>{{p.equipe.name}}</td>
             <td>
                 <button class="editar" (click)="setPilotoselecionado(p)">
                     editar

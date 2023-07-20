@@ -17,21 +17,22 @@ export class PilotoFormComponent {
   public piloto = {} as Piloto;
   public paisSelecionado: Pais | null = null;
   public equipeSelecionado: Equipe | null = null;
-  public filtrar = false;
   public paisId: number | null = null;
   public equipeId: number | null = null;
 
 
-  constructor(private pilotoService: PilotoService, private countryService: CountryService) { }
+  constructor(private pilotoService: PilotoService) { }
 
   public insert() {
     if (this.paisSelecionado) {
       this.piloto.pais = this.paisSelecionado;
+
       this.pilotoService.adiciona(this.piloto).subscribe((data) => {
 
       });
     }
     this.limparFormulario()
+    console.log(this.piloto)
   }
 
   public updatePista() {
@@ -40,10 +41,6 @@ export class PilotoFormComponent {
       this.pilotoService.update(this.piloto).subscribe((data) => {
       });
     }
-  }
-
-  public Filtrar() {
-    this.filtrar = !this.filtrar;
   }
 
   public limparFormulario() {
@@ -93,6 +90,10 @@ export class PilotoFormComponent {
 
     this.pilotoService.countryListAll().subscribe((data) => {
       this.paises = data;
+    });
+
+    this.pilotoService.equipeListAll().subscribe((data) => {
+      this.equipes = data;
     });
   }
 

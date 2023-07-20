@@ -4,13 +4,14 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { Piloto } from '../models/piloto';
 import { Pais } from '../../paises/models/pais';
 import { CountryService } from '../../paises/service/country.service';
+import { EquipeService } from 'src/app/equipes/service/equipe.service';
+import { Equipe } from 'src/app/equipes/models/equipe';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PilotoService {
   private urlBase: string = "http://localhost:8080/piloto"
-  private urlPais: string = "http://localhost:8080/pais"
   public editar: boolean = false;
   public pilotoSelecionado = new EventEmitter<Piloto>();
   public updateTableEvent = new EventEmitter<void>();
@@ -21,7 +22,7 @@ export class PilotoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private http: HttpClient, private countryService: CountryService) { }
+  constructor(private http: HttpClient, private countryService: CountryService, private equipeService: EquipeService) { }
 
   listAll(): Observable<Piloto[]> {
     this.http.get<Piloto[]>(this.urlBase)
@@ -31,6 +32,10 @@ export class PilotoService {
 
   countryListAll(): Observable<Pais[]> {
     return this.countryService.listAll();
+  }
+
+  equipeListAll(): Observable<Equipe[]> {
+    return this.equipeService.listAll();
   }
 
   public getPilotosSubject(): Observable<Piloto[]> {
@@ -84,6 +89,11 @@ export class PilotoService {
 
   getPilotosByPais(idPais: number): Observable<Piloto[]> {
     const url = `${this.urlBase}/pais/${idPais}`;
+    return this.http.get<Piloto[]>(url);
+  }
+
+  getPilotosByEquipe(idEquipe: number): Observable<Piloto[]> {
+    const url = `${this.urlBase}/equipe/${idEquipe}`;
     return this.http.get<Piloto[]>(url);
   }
 }
