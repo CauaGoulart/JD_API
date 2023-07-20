@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../../models/user';
 import { UserService } from 'src/app/users/service/user.service';
 
 @Component({
@@ -15,13 +15,12 @@ export class UserTableComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    this.service.getUsers().subscribe((data) => {
+    this.service.listAll().subscribe((data) => {
       this.users = data;
     });
 
     this.service.updateTableEvent.subscribe(() => {
-      this.service.getUsers().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.users = data;
       });
 
@@ -32,7 +31,7 @@ export class UserTableComponent implements OnInit {
 
   public deleteItem(user: User) {
     this.service.deleteItem(user).subscribe(() => {
-      this.service.getUsers().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.users = data;
       });
     });

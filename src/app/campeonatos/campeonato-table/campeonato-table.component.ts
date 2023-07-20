@@ -13,12 +13,12 @@ export class CampeonatoTableComponent implements OnInit {
   constructor(private service: CampeonatoService) { }
 
   ngOnInit(): void {
-    this.service.getCampeonatos().subscribe((data) => {
+    this.service.listAll().subscribe((data) => {
       this.campeonatos = data;
     });
 
     this.service.updateTableEvent.subscribe(() => {
-      this.service.getCampeonatos().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.campeonatos = data;
       });
     });
@@ -27,7 +27,7 @@ export class CampeonatoTableComponent implements OnInit {
 
   public deleteItem(campeonato: Campeonato) {
     this.service.deleteItem(campeonato).subscribe(() => {
-      this.service.getCampeonatos().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.campeonatos = data;
       });
     });

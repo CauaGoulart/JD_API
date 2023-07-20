@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Pais } from '../models/pais';
-import { CountryService } from '../service/country.service';
+import { Pais } from '../../models/pais';
+import { CountryService } from '../../service/country.service';
 
 @Component({
   selector: 'app-pais-table',
@@ -13,12 +13,12 @@ export class PaisTableComponent implements OnInit {
   constructor(private service: CountryService) { }
 
   ngOnInit(): void {
-    this.service.getCountry().subscribe((data) => {
+    this.service.listAll().subscribe((data) => {
       this.paises = data;
     });
 
     this.service.updateTableEvent.subscribe(() => {
-      this.service.getCountry().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.paises = data;
       });
     });
@@ -27,7 +27,7 @@ export class PaisTableComponent implements OnInit {
 
   public deleteItem(pais: Pais) {
     this.service.deleteItem(pais).subscribe(() => {
-      this.service.getCountry().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.paises = data;
       });
     });

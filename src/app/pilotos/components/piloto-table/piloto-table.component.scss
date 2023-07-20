@@ -1,0 +1,40 @@
+.popular {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bolder;
+  }
+  
+  .tabela {
+    height: 300px;
+    overflow-y: scroll;
+    scrollbar-width: 5px;
+    text-align: left;
+    margin-top: 70px;
+    margin: 0 auto;
+  }
+  
+  button {
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid #0b0e07;
+    display: inline-block;
+    cursor: pointer;
+    color: black;
+    font-size: 12px;
+    font-family: Arial;
+    font-weight: bold;
+    padding: 9px 23px;
+  }
+  
+  button:active {
+    position: relative;
+    top: 1px;
+  }
+  
+  .deletar:hover {
+    background-color: rgb(231, 36, 36);
+  }
+  
+  .editar:hover {
+    background-color: rgb(5, 207, 5);
+  }
+  

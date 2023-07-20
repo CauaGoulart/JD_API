@@ -20,7 +20,7 @@ export class CampeonatoService {
 
   constructor(private http: HttpClient) { }
 
-  getCampeonatos(): Observable<Campeonato[]> {
+  listAll(): Observable<Campeonato[]> {
     this.http.get<Campeonato[]>(this.urlBase)
       .subscribe(campeonatos => this.campeonatosSubject.next(campeonatos));
     return this.campeonatosSubject.asObservable();
@@ -34,7 +34,7 @@ export class CampeonatoService {
   public adiciona(campeonato: Campeonato): Observable<Campeonato> {
     return this.http.post<Campeonato>(this.urlBase, campeonato, this.httpOptions).pipe(
       tap(() => {
-        this.getCampeonatos();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );
@@ -43,7 +43,7 @@ export class CampeonatoService {
   public update(campeonato: Campeonato): Observable<Campeonato> {
     return this.http.put<Campeonato>(this.urlBase, campeonato, this.httpOptions).pipe(
       tap(() => {
-        this.getCampeonatos();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Equipe } from '../models/equipe';
-import { EquipeService } from '../service/equipe.service';
+import { Equipe } from '../../models/equipe';
+import { EquipeService } from '../../service/equipe.service';
 
 @Component({
   selector: 'app-equipe-form',

@@ -84,7 +84,7 @@ export class PistaFormComponent implements OnInit {
       this.pista = pista;
     });
 
-    this.pistaService.getCountry().subscribe((data) => {
+    this.pistaService.countryListAll().subscribe((data) => {
       this.paises = data;
     });
   }

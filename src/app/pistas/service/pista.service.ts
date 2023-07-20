@@ -10,14 +10,10 @@ import { CountryService } from 'src/app/paises/service/country.service';
 })
 export class PistaService {
   private urlBase: string = "http://localhost:8080/pistas"
-  private urlPais: string = "http://localhost:8080/pais"
   public editar: boolean = false;
   public Pistaselecionado = new EventEmitter<Pista>();
   public updateTableEvent = new EventEmitter<void>();
-  private pistas: Pista[] = [];
-  private paises: Pais[] = [];
   private pistaSubject = new Subject<Pista[]>();
-  private paisSubject = new Subject<Pais[]>();
   private pistasSubject = new BehaviorSubject<Pista[]>([]);
 
   private httpOptions = {
@@ -26,14 +22,14 @@ export class PistaService {
 
   constructor(private http: HttpClient, private countryService: CountryService) { }
 
-  getPista(): Observable<Pista[]> {
+  listAll(): Observable<Pista[]> {
     this.http.get<Pista[]>(this.urlBase)
       .subscribe(pistas => this.pistaSubject.next(pistas));
     return this.pistaSubject.asObservable();
   }
 
-  getCountry(): Observable<Pais[]> {
-    return this.countryService.getCountry();
+  countryListAll(): Observable<Pais[]> {
+    return this.countryService.listAll();
   }
 
   public getPistasSubject(): Observable<Pista[]> {
@@ -43,7 +39,7 @@ export class PistaService {
   public adiciona(pista: Pista): Observable<Pista> {
     return this.http.post<Pista>(this.urlBase, pista, this.httpOptions).pipe(
       tap(() => {
-        this.getPista();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );
@@ -52,7 +48,7 @@ export class PistaService {
   public update(pista: Pista): Observable<Pista> {
     return this.http.put<Pista>(this.urlBase, pista, this.httpOptions).pipe(
       tap(() => {
-        this.getPista();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );

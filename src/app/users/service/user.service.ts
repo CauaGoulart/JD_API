@@ -22,20 +22,19 @@ export class UserService {
     , responseType: 'text' as 'json'
   }
 
-  private httpOptions2 = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": this.globalService.token })
-    , responseType: 'text' as 'json'
-  }
-
   private getToken() {
     this.globalService.getToken("miles@gmail.com", "123");
     console.log(this.globalService.token);
-
   }
 
-  getUsers(): Observable<User[]> {
+  listAll(): Observable<User[]> {
+    this.getToken() 
 
-    this.http.get<User[]>(this.urlBase, this.httpOptions)
+    let httpOptions2 = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': this.globalService.token})
+      , responseType: 'text' as 'json'
+    }
+    this.http.get<User[]>(this.urlBase, httpOptions2)
       .subscribe(users => this.usersSubject.next(users));
     return this.usersSubject.asObservable();
   }
@@ -43,7 +42,7 @@ export class UserService {
   public adiciona(user: User): Observable<User> {
     return this.http.post<User>(this.urlBase, user, this.httpOptions).pipe(
       tap(() => {
-        this.getUsers();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );
@@ -52,7 +51,7 @@ export class UserService {
   public update(user: User): Observable<User> {
     return this.http.put<User>(this.urlBase, user, this.httpOptions).pipe(
       tap(() => {
-        this.getUsers();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );

@@ -1,0 +1,24 @@
+<div class="tabela">
+    <table border="1" cellSpacing="0" width="80%">
+        <tr>
+            <th>Nome</th>
+            <th>Pais</th>
+            <th>Equipe</th>
+            <th>Ações</th>
+        </tr>
+        <tr *ngFor="let p of pistas; let i = index">
+            <td>{{p.name}}</td>
+            <td>{{p.equipe.name}}</td>
+            <td>{{p.pais.name}}</td>
+            <td>
+                <button class="editar" (click)="setPilotoselecionado(p)">
+                    editar
+                </button>
+                <button class="deletar" (click)="deleteItem(p)">
+                    deletar
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</div>

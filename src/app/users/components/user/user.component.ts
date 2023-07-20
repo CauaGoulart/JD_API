@@ -11,7 +11,7 @@ export class UserComponent {
   constructor(private service: UserService) { }
 
   public getUser() {
-    this.service.getUsers().subscribe((data) => {
+    this.service.listAll().subscribe((data) => {
       console.log(data);
     });
 

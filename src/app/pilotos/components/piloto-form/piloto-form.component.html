@@ -1,0 +1,29 @@
+<div>
+
+    <h1>Cadastro de Piloto</h1>
+
+    <div class="form-input">
+        <label for="name">Nome:</label>
+        <input id="name" [(ngModel)]="piloto.name">
+        <button class="filter" (click)="getPistaByName(piloto.name)">Filtrar</button>
+    </div>
+
+    <br>
+    <div class="form-input">
+        <label for="pais">País:</label>
+        <select id="pais" [(ngModel)]="paisSelecionado" name="pais" (change)="paisId = paisSelecionado?.id ?? null">
+            <option *ngFor="let pais of paises" [ngValue]="pais">{{ pais.name }}</option>
+        </select>
+        <button class="filter" (click)="getPilotosByPais()">Filtrar</button>
+    </div>
+<br>
+    <div class="form-input">
+        <label for="equipe">Equipes:</label>
+        <select id="equipe" [(ngModel)]="paisSelecionado" name="equipe" (change)="equipeId = equipeSelecionado?.id ?? null">
+            <option *ngFor="let equipe of equipes" [ngValue]="equipe">{{ equipe.name }}</option>
+        </select>
+        <button class="filter" (click)="getPilotosByEquipe()">Filtrar</button>
+    </div>
+
+    <button class="save" (click)="insert()">Salvar</button>
+</div>

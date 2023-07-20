@@ -13,12 +13,12 @@ export class PistaTableComponent implements OnInit {
   constructor(private service: PistaService) { }
 
   ngOnInit(): void {
-    this.service.getPista().subscribe((data) => {
+    this.service.listAll().subscribe((data) => {
       this.pistas = data;
     });
 
     this.service.updateTableEvent.subscribe(() => {
-      this.service.getPista().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.pistas = data;
       });
     });
@@ -31,7 +31,7 @@ export class PistaTableComponent implements OnInit {
 
   public deleteItem(pista: Pista) {
     this.service.deleteItem(pista).subscribe(() => {
-      this.service.getPista().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.pistas = data;
       });
     });

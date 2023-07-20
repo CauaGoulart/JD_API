@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Pais } from '../models/pais';
-import { CountryService } from '../service/country.service';
+import { Pais } from '../../models/pais';
+import { CountryService } from '../../service/country.service';
 
 @Component({
   selector: 'app-pais-form',

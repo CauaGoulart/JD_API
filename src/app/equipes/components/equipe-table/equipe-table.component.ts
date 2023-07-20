@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Equipe } from '../models/equipe';
-import { EquipeService } from '../service/equipe.service';
+import { Equipe } from '../../models/equipe';
+import { EquipeService } from '../../service/equipe.service';
 
 @Component({
   selector: 'app-equipe-table',
@@ -13,12 +13,12 @@ export class EquipeTableComponent implements OnInit {
   constructor(private service: EquipeService) { }
 
   ngOnInit(): void {
-    this.service.getCountry().subscribe((data) => {
+    this.service.listAll().subscribe((data) => {
       this.equipes = data;
     });
 
     this.service.updateTableEvent.subscribe(() => {
-      this.service.getCountry().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.equipes = data;
       });
     });
@@ -27,7 +27,7 @@ export class EquipeTableComponent implements OnInit {
 
   public deleteItem(equipe: Equipe) {
     this.service.deleteItem(equipe).subscribe(() => {
-      this.service.getCountry().subscribe((data) => {
+      this.service.listAll().subscribe((data) => {
         this.equipes = data;
       });
     });

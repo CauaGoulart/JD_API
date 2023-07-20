@@ -20,7 +20,7 @@ export class CountryService {
 
   constructor(private http: HttpClient) { }
 
-  getCountry(): Observable<Pais[]> {
+  listAll(): Observable<Pais[]> {
     this.http.get<Pais[]>(this.urlBase)
       .subscribe(paises => this.paisSubject.next(paises));
     return this.paisSubject.asObservable();
@@ -29,7 +29,7 @@ export class CountryService {
   public adiciona(user: Pais): Observable<Pais> {
     return this.http.post<Pais>(this.urlBase, user, this.httpOptions).pipe(
       tap(() => {
-        this.getCountry();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );
@@ -38,7 +38,7 @@ export class CountryService {
   public update(user: Pais): Observable<Pais> {
     return this.http.put<Pais>(this.urlBase, user, this.httpOptions).pipe(
       tap(() => {
-        this.getCountry();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );

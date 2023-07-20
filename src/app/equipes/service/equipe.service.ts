@@ -20,21 +20,16 @@ export class EquipeService {
 
   constructor(private http: HttpClient) { }
 
-  getCountry(): Observable<Equipe[]> {
+  listAll(): Observable<Equipe[]> {
     this.http.get<Equipe[]>(this.urlBase)
       .subscribe(equipes => this.equipesSubject.next(equipes));
     return this.equipesSubject.asObservable();
   }
 
-  private setUsers(equipes: Equipe[]) {
-    this.equipes = equipes;
-    this.equipesSubject.next(equipes);
-  }
-
   public adiciona(user: Equipe): Observable<Equipe> {
     return this.http.post<Equipe>(this.urlBase, user, this.httpOptions).pipe(
       tap(() => {
-        this.getCountry();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );
@@ -43,7 +38,7 @@ export class EquipeService {
   public update(user: Equipe): Observable<Equipe> {
     return this.http.put<Equipe>(this.urlBase, user, this.httpOptions).pipe(
       tap(() => {
-        this.getCountry();
+        this.listAll();
         this.updateTableEvent.emit();
       })
     );

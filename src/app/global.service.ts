@@ -17,6 +17,12 @@ export class GlobalService {
 
 
   public getToken(email: string, password: string) {
+
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization':this.token })
+      , responseType: 'text' as 'json'
+    }
+
     let url = "http://localhost:8080/auth/token";
     let userLogin = {
       email: email,
