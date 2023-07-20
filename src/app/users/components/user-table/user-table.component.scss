@@ -1,6 +1,6 @@
 .popular {
   font-family: "Times New Roman", Times, serif;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 .tabela {
@@ -14,15 +14,16 @@
 
 button {
   background-color: white;
-  border-radius: 15px;
-  border: 1px solid #0b0e07;
-  display: inline-block;
+  border-radius: 5px;
+  border: none;
   cursor: pointer;
   color: black;
-  font-size: 12px;
-  font-family: Arial;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
   font-weight: bold;
-  padding: 9px 23px;
+  padding: 5px 15px;
+  margin-right: 10px;
+  transition: background-color 0.2s;
 }
 
 button:active {
@@ -31,9 +32,9 @@ button:active {
 }
 
 .deletar:hover {
-  background-color: rgb(231, 36, 36);
+  background-color: #e72424;
 }
 
 .editar:hover {
-  background-color: rgb(5, 207, 5);
+  background-color: #05cf05;
 }

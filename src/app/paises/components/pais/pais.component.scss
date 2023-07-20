@@ -1,13 +1,13 @@
 .container {
-  color: #212121;
-  border: 2px solid black;
+  background: #333333;
+  color: #fff;
   border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   height: 650px;
-  width: 600px;
-  scrollbar-width: 5px;
+  width: 80%;
+  max-width: 600px;
+  margin: 70px auto;
+  padding: 30px;
   text-align: left;
-  margin-top: 70px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 15px;
+  font-family: Arial, sans-serif;
 }
