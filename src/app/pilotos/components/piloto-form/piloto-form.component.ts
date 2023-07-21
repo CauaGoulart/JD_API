@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Pais } from 'src/app/paises/models/pais';
-import { CountryService } from 'src/app/paises/service/country.service';
 import { Equipe } from '../../../equipes/models/equipe';
 import { PilotoService } from '../../service/piloto.service';
 import { Piloto } from '../../models/piloto';

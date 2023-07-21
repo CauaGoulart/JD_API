@@ -3,39 +3,28 @@
     <h1>Cadastro de Corrida</h1>
 
 
-    <!-- <div class="form-input">
-        <label for="data">Data:</label>
-        <input id="data" type="date" [(ngModel)]="dataCorrida">
+    < <div class="form-input">
+        <label for="data-hora">Data e Hora:</label>
+        <input class="input" type="datetime-local" id="data-hora" [(ngModel)]="corrida.data">
     </div>
-    <br> -->
-
-
-    <!-- <div class="form-input">
-        <label for="pais">Pista:</label>
-        <select id="pais" [(ngModel)]="pistaSelecionado" name="pais" (change)="pistaId = pistaSelecionado?.id ?? null">
-            <option *ngFor="let pista of pistas" [ngValue]="pista">{{ pista.name }}</option>
-        </select>
-        <button class="filter" (click)="getPistasByPais()">Filtrar</button>
-
-    </div> -->
 
     <br>
 
     <div class="form-input">
-        <label for="pais">Pista:</label>
-        <select id="pais" [(ngModel)]="pistaSelecionado" name="pista" (change)="pistaId = pistaSelecionado?.id ?? null">
+        <label for="pista">Pista:</label>
+        <select id="pista" [(ngModel)]="pistaSelecionada" name="pista" (change)="pistaId = pistaSelecionada?.id ?? null">
             <option *ngFor="let pista of pistas" [ngValue]="pista">{{ pista.nome }}</option>
         </select>
-        <button class="filter" (click)="getCorridasByPista()">Filtrar</button>
+        <button class="filter" (click)="getCorridaByPista()">Filtrar</button>
 
     </div>
 
     <div class="form-input">
-        <label for="pais">Campeonato:</label>
-        <select id="pais" [(ngModel)]="pistaSelecionado" name="pista" (change)="pistaId = pistaSelecionado?.id ?? null">
+        <label for="campeonato">Campeonato:</label>
+        <select id="campeonato" [(ngModel)]="campeonatoSelecionado" name="campeonato" (change)="pistaId = campeonatoSelecionado?.id ?? null">
             <option *ngFor="let pista of pistas" [ngValue]="pista">{{ pista.nome }}</option>
         </select>
-        <button class="filter" (click)="getCorridasByPista()">Filtrar</button>
+        <button class="filter" (click)="getCorridaByCampeonato()">Filtrar</button>
 
     </div>
 

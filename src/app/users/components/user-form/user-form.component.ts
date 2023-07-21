@@ -42,6 +42,13 @@ export class UserFormComponent implements OnInit {
     });
   }
 
+  getUsersByEmail(email: string) {
+    this.service.getUsersByEmail(email).subscribe((users) => {
+      this.service.editar = false;
+      this.user = users[0];
+    });
+  }
+
   ngOnInit(): void {
     this.service.Userselecionado.subscribe(user => {
       this.user = user;

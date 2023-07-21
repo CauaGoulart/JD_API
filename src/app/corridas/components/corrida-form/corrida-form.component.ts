@@ -4,6 +4,8 @@ import { Pista } from '../../../pistas/models/pista';
 import { CorridaService } from '../../service/corrida.service';
 import { CampeonatoService } from '../../../campeonatos/service/campeonato.service';
 import { Campeonato } from '../../../campeonatos/models/campeonato';
+import { PistaService } from '../../../pistas/service/pista.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-corrida-form',
@@ -11,99 +13,88 @@ import { Campeonato } from '../../../campeonatos/models/campeonato';
   styleUrls: ['./corrida-form.component.scss']
 })
 export class CorridaFormComponent implements OnInit {
-  public pistas: Pista[] = [];
-  public campeonatos: Campeonato[] = [];
-  public corridas!: Corrida[];
   public corrida = {} as Corrida;
-  public pistaSelecionado: Pista | null = null;
+  public pistaSelecionada: Pista | null = null;
+  public pistas: Pista[] = [];
   public campeonatoSelecionado: Campeonato | null = null;
-  public filtrar = false;
-  public campeonatoId: number | null = null;
+  public campeonatos: Campeonato[] = [];
+  public id!: number;
+  public dataInicial!: string;
+  public dataFinal!: string;
   public pistaId: number | null = null;
+  public campeonatoId: number | null = null;
 
-
-  constructor(private corridaService: CorridaService, private campeonatoService: CampeonatoService) { }
-
-  public insert() {
-    if (this.pistaSelecionado) {
-      this.corrida.pista = this.pistaSelecionado;
-      this.corridaService.adiciona(this.corrida).subscribe((data) => {
-
-      });
-    }
-    this.limparFormulario()
-  }
-
-  public updatePista() {
-    if (this.pistaSelecionado) {
-      this.corrida.pista = this.pistaSelecionado;
-      this.corridaService.update(this.corrida).subscribe((data) => {
-      });
-    }
-  }
-
-  public Filtrar() {
-    this.filtrar = !this.filtrar;
-  }
-
-  public limparFormulario() {
-    this.corrida = {
-      id: 0,
-      data: "",
-      pista: {
-        id: 0,
-        nome: "",
-        tamanho: 0,
-        pais: {
-          id: 0,
-          name: ""
-        }
-      },
-      campeonato: {
-        id: 0,
-        descricao: "",
-        ano: 0
-      }
-    };
-  }
-
-  getCorridaByDate(name: string) {
-    this.corridaService.getCorridasByData(name).subscribe((corridas) => {
-      this.corridaService.editar = false;
-      this.corrida = corridas[0];
-    });
-  }
-
-  public getCorridasByCampeonato() {
-    if (this.campeonatoId !== null) {
-      this.corridaService.getCorridasByCampeonato(this.campeonatoId).subscribe((corridas) => {
-
-        this.corridaService.atualizarCorridas(corridas);
-      });
-    }
-  }
-
-  public getCorridasByPista() {
-    if (this.pistaId !== null) {
-      this.corridaService.getCorridasByCampeonato(this.pistaId).subscribe((corridas) => {
-
-        this.corridaService.atualizarCorridas(corridas);
-      });
-    }
-  }
+  constructor(
+    private pistaService: PistaService,
+    private campeonatoService: CampeonatoService,
+    private service: CorridaService,
+    private datePipe: DatePipe
+  ) { }
 
   ngOnInit(): void {
-    this.corridaService.Corridaselecionado.subscribe(corrida => {
-      this.corrida = corrida;
+    this.pistaService.listAll().subscribe((data) => {
+      this.pistas = data;
     });
-
-    this.corridaService.campeonatoListAll().subscribe((data) => {
+    this.campeonatoService.listAll().subscribe((data) => {
       this.campeonatos = data;
-    });
+    })
+    this.service.selectCorridaEvent.subscribe((data) => {
+      this.corrida = data;
+    })
   }
 
-  onChangeCorrida() {
+  public insert() {
+    if (this.pistaSelecionada && this.campeonatoSelecionado) {
+      this.corrida.pista = this.pistaSelecionada;
+      this.corrida.campeonato = this.campeonatoSelecionado;
+    }
+    
+    const dataFormatada = this.formataData(this.corrida.data);
+    if (dataFormatada) {
+      this.corrida.data = dataFormatada;
+    }
 
-    this.getCorridasByCampeonato();
+    if (this.corrida.id != null) {
+      this.service.update(this.corrida).subscribe((data) => {
+        this.corrida = data;
+        this.corrida = {} as Corrida;
+      });
+    } else {
+      this.service.insert(this.corrida).subscribe((data) => {
+        this.corrida = data;
+        this.corrida = {} as Corrida;
+      });
+    }
+  }
+
+  public getCorridaByDataBetween() {
+    const dataInicial = this.formataData(this.dataInicial);
+    const dataFinal = this.formataData(this.dataFinal);
+    if (dataInicial && dataFinal) {
+      this.service.findByDataBetween(dataInicial, dataFinal);
+    }
+  }
+
+  private formataData(data: string) {
+    return this.datePipe.transform(data, 'dd/MM/yyyy HH:mm');
+  }
+
+  public getCorridaByData() {
+    const data = this.formataData(this.corrida.data);
+    if (data) {
+      this.service.findByData(data);
+    }
+  }
+
+  public getCorridaByPista() {
+    if (this.pistaId != null) {
+      this.service.findByPista(this.pistaId);
+    }
+  }
+
+  public getCorridaByCampeonato() {
+    if (this.campeonatoId != null) {
+      this.service.findByCampeonato(this.campeonatoId);
+    }
   }
 }

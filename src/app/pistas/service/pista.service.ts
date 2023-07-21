@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { Pista } from '../models/pista';
 import { Pais } from 'src/app/paises/models/pais';
 import { CountryService } from 'src/app/paises/service/country.service';
+import { LoginService } from '../../login/service/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,18 @@ export class PistaService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private http: HttpClient, private countryService: CountryService) { }
+  constructor(private http: HttpClient, private countryService: CountryService,private loginService: LoginService) {}
 
-  listAll(): Observable<Pista[]> {
-    this.http.get<Pista[]>(this.urlBase)
-      .subscribe(pistas => this.pistaSubject.next(pistas));
-    return this.pistaSubject.asObservable();
+  private getHttpOptions(){
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": this.loginService.token}),
+    };
+    return httpOptions;
+  }
+
+  public listAll(): Observable<Pista[]>{
+    this.http.get<Pista[]>(this.urlBase, this.getHttpOptions()).subscribe((pistas) => this.pistasSubject.next(pistas));
+    return this.pistasSubject.asObservable();
   }
 
   countryListAll(): Observable<Pais[]> {

@@ -9,6 +9,7 @@ import { EquipeComponent } from './equipes/components/equipe/equipe.component';
 import { PilotoComponent } from './pilotos/components/piloto/piloto.component';
 import { CorridaComponent } from './corridas/components/corrida/corrida.component';
 import { LoginComponent } from './login/components/login/login.component';
+import { PilotoCorridaComponent } from './pilotos-corridas/component/piloto-corrida/piloto-corrida.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: "pilotos", component: PilotoComponent },
   { path: "corridas", component: CorridaComponent },
   { path: "corridas", component: CorridaComponent },
+  { path: "pilotoCorrida", component: PilotoCorridaComponent },
   { path: "login", component: LoginComponent },
 ];
 

@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { Equipe } from '../models/equipe';
+import { LoginService } from '../../login/service/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +15,22 @@ export class EquipeService {
   private equipes: Equipe[] = [];
   private equipesSubject = new Subject<Equipe[]>();
 
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  constructor(private http: HttpClient, private loginService: LoginService) { }
+
+  private getHttpOptions(){
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": this.loginService.token}),
+    };
+    return httpOptions;
   }
 
-  constructor(private http: HttpClient) { }
-
-  listAll(): Observable<Equipe[]> {
-    this.http.get<Equipe[]>(this.urlBase)
-      .subscribe(equipes => this.equipesSubject.next(equipes));
+  public listAll(): Observable<Equipe[]>{
+    this.http.get<Equipe[]>(this.urlBase, this.getHttpOptions()).subscribe((equipes) => this.equipesSubject.next(equipes));
     return this.equipesSubject.asObservable();
   }
 
   public adiciona(user: Equipe): Observable<Equipe> {
-    return this.http.post<Equipe>(this.urlBase, user, this.httpOptions).pipe(
+    return this.http.post<Equipe>(this.urlBase, user, this.getHttpOptions()).pipe(
       tap(() => {
         this.listAll();
         this.updateTableEvent.emit();
@@ -36,7 +39,7 @@ export class EquipeService {
   }
 
   public update(user: Equipe): Observable<Equipe> {
-    return this.http.put<Equipe>(this.urlBase, user, this.httpOptions).pipe(
+    return this.http.put<Equipe>(this.urlBase, user, this.getHttpOptions()).pipe(
       tap(() => {
         this.listAll();
         this.updateTableEvent.emit();
@@ -45,7 +48,7 @@ export class EquipeService {
   }
 
   public deleteItem(user: Equipe): Observable<void> {
-    return this.http.delete<void>(`${this.urlBase}/${user.id}`, this.httpOptions);
+    return this.http.delete<void>(`${this.urlBase}/${user.id}`, this.getHttpOptions());
   }
 
   public setEquipeselecionada(user: Equipe) {

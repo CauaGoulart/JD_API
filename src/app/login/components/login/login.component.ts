@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../../service/login.service';
+import { Login } from '../../models/login';
 
 @Component({
   selector: 'app-login',
@@ -7,14 +8,13 @@ import { LoginService } from '../../service/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  public user = {
-    email: '',
-    password: ''
-  };
 
-  constructor(private loginService: LoginService) { }
+  public login = {} as Login;
 
-  public loginUser(): void {
-    this.loginService.fazerLogin(this.user.email, this.user.password);
+  constructor(private service: LoginService) {}
+
+  public getToken(){
+    this.service.getToken(this.login).subscribe(() => {
+    });
   }
 }

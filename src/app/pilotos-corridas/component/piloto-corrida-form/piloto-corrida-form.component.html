@@ -1,0 +1,26 @@
+<div>
+
+    <h1>Cadastro de Piloto-Corrida</h1>
+
+    <br>
+
+    <div class="form-input">
+        <label for="piloto">Piloto:</label>
+        <select id="piloto" [(ngModel)]="pilotoSelecionado" name="pista" (change)="pilotoId = pilotoSelecionado?.id ?? null">
+            <option *ngFor="let piloto of pilotos" [ngValue]="piloto">{{ piloto.name }}</option>
+        </select>
+        <button class="filter" (click)="getPilotoCorridaByPiloto()">Filtrar</button>
+
+    </div>
+
+    <div class="form-input">
+        <label for="corrida">Corrida:</label>
+        <select id="corrida" [(ngModel)]="corridaSelecionada" name="corrida" (change)="corridaId = corridaSelecionada?.id ?? null">
+            <option *ngFor="let corrida of corridas" [ngValue]="corrida">{{ corrida.data }}</option>
+        </select>
+        <button class="filter" (click)="getPilotoCorridaByCorrida()">Filtrar</button>
+
+    </div>
+
+    <button class="save" (click)="insert()">Salvar</button>
+</div>

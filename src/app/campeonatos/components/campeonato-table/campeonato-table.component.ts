@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Campeonato } from '../models/campeonato';
-import { CampeonatoService } from '../service/campeonato.service';
+import { Campeonato } from '../../models/campeonato';
+import { CampeonatoService } from '../../service/campeonato.service';
 
 @Component({
   selector: 'app-campeonato-table',

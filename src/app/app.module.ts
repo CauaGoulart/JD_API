@@ -15,6 +15,7 @@ import { PistasModule } from './pistas/pistas.module';
 import { PilotosModule } from './pilotos/pilotos.module';
 import { CorridasModule } from './corridas/corridas.module';
 import { LoginModule } from './login/login.module';
+import { PilotosCorridasModule } from './pilotos-corridas/pilotos-corridas.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { LoginModule } from './login/login.module';
     PistasModule,
     PilotosModule,
     CorridasModule,
+    PilotosCorridasModule,
     LoginModule
   ],
   providers: [],

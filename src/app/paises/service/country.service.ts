@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { Pais } from '../models/pais';
+import { LoginService } from '../../login/service/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,28 +15,22 @@ export class CountryService {
   private paises: Pais[] = [];
   private paisSubject = new Subject<Pais[]>();
 
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
-  constructor(private http: HttpClient) { }
-
-  private getHttpOptions(): { headers: HttpHeaders } {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
+  private getHttpOptions(){
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": this.loginService.token}),
     };
+    return httpOptions;
   }
 
-  listAll(): Observable<Pais[]> {
-    this.http.get<Pais[]>(this.urlBase, this.getHttpOptions())
-      .subscribe(paises => this.paisSubject.next(paises));
+  public listAll(): Observable<Pais[]>{
+    this.http.get<Pais[]>(this.urlBase, this.getHttpOptions()).subscribe((paises) => this.paisSubject.next(paises));
     return this.paisSubject.asObservable();
   }
 
   public adiciona(user: Pais): Observable<Pais> {
-    return this.http.post<Pais>(this.urlBase, user, this.httpOptions).pipe(
+    return this.http.post<Pais>(this.urlBase, user, this.getHttpOptions()).pipe(
       tap(() => {
         this.listAll();
         this.updateTableEvent.emit();
@@ -44,7 +39,7 @@ export class CountryService {
   }
 
   public update(user: Pais): Observable<Pais> {
-    return this.http.put<Pais>(this.urlBase, user, this.httpOptions).pipe(
+    return this.http.put<Pais>(this.urlBase, user, this.getHttpOptions()).pipe(
       tap(() => {
         this.listAll();
         this.updateTableEvent.emit();
@@ -53,7 +48,7 @@ export class CountryService {
   }
 
   public deleteItem(user: Pais): Observable<void> {
-    return this.http.delete<void>(`${this.urlBase}/${user.id}`, this.httpOptions);
+    return this.http.delete<void>(`${this.urlBase}/${user.id}`, this.getHttpOptions());
   }
 
   public setCountryselecionado(user: Pais) {

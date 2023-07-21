@@ -11,6 +11,7 @@
     <div class="form-input">
         <label for="email">E-mail:</label>
         <input id="email" [(ngModel)]="user.email">
+        <button class="filter" (click)="getUsersByEmail(user.email)">Filtrar</button>
     </div>
 
     <div class="form-input">

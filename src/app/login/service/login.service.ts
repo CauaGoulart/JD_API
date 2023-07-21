@@ -1,53 +1,29 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { Login } from '../models/login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  public login: any = {};
-  public token: string = "Bearer "
-
-  constructor(private http: HttpClient) { }
-
-
-  public fazerLogin(email: string, senha: string): void {
-    this.getToken(email, senha).subscribe(
-      (token) => {
-        this.login.email = email;
-        this.login.token = token;
-        console.log('Login realizado com sucesso! Token:', token);
-      }
-    );
-  }
+  public token: string = "Bearer ";
 
   private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    , responseType: 'text' as 'json'
+    headers: new HttpHeaders({'Content-Type': 'application/json'}),
+    responseType: 'text' as 'json'
   }
 
+  constructor(private http: HttpClient) {}
 
-  public getToken(email: string, password: string): Observable<string> {
-    const url = "http://localhost:8080/auth/token";
-    const userLogin = { email: email, password: password };
-
-    return this.http.post<string>(url, userLogin, { responseType: 'text' as 'json' }).pipe(
+  public getToken(login: Login): Observable<string>{
+    console.log("Entrou");
+    let url = "http://localhost:8099/auth/token";
+    return this.http.post<string>(url, login, this.httpOptions).pipe(
       tap((data) => {
         this.token += data;
       })
-    );
+    )
   }
-
-  public getTokenObservable(email: string, senha: string): Observable<string> {
-    return this.getToken(email, senha).pipe(
-      tap((token) => {
-        this.login.email = email;
-        this.login.token = token;
-        console.log('Login realizado com sucesso! Token:', token);
-      })
-    );
-  }
-
 }

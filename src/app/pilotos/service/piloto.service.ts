@@ -6,6 +6,7 @@ import { Pais } from '../../paises/models/pais';
 import { CountryService } from '../../paises/service/country.service';
 import { EquipeService } from 'src/app/equipes/service/equipe.service';
 import { Equipe } from 'src/app/equipes/models/equipe';
+import { LoginService } from '../../login/service/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +19,18 @@ export class PilotoService {
   private pilotoSubject = new Subject<Piloto[]>();
   private pilotosSubject = new BehaviorSubject<Piloto[]>([]);
 
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  constructor(private http: HttpClient, private countryService: CountryService, private equipeService: EquipeService, private loginService: LoginService) { }
+
+  private getHttpOptions(){
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": this.loginService.token}),
+    };
+    return httpOptions;
   }
 
-  constructor(private http: HttpClient, private countryService: CountryService, private equipeService: EquipeService) { }
-
-  listAll(): Observable<Piloto[]> {
-    this.http.get<Piloto[]>(this.urlBase)
-      .subscribe(pilotos => this.pilotoSubject.next(pilotos));
-    return this.pilotoSubject.asObservable();
+  public listAll(): Observable<Piloto[]>{
+    this.http.get<Piloto[]>(this.urlBase, this.getHttpOptions()).subscribe((pilotos) => this.pilotosSubject.next(pilotos));
+    return this.pilotosSubject.asObservable();
   }
 
   countryListAll(): Observable<Pais[]> {
@@ -43,7 +46,7 @@ export class PilotoService {
   }
 
   public adiciona(piloto: Piloto): Observable<Piloto> {
-    return this.http.post<Piloto>(this.urlBase, piloto, this.httpOptions).pipe(
+    return this.http.post<Piloto>(this.urlBase, piloto, this.getHttpOptions()).pipe(
       tap(() => {
         this.listAll();
         this.updateTableEvent.emit();
@@ -52,7 +55,7 @@ export class PilotoService {
   }
 
   public update(piloto: Piloto): Observable<Piloto> {
-    return this.http.put<Piloto>(this.urlBase, piloto, this.httpOptions).pipe(
+    return this.http.put<Piloto>(this.urlBase, piloto, this.getHttpOptions()).pipe(
       tap(() => {
         this.listAll();
         this.updateTableEvent.emit();
@@ -65,7 +68,7 @@ export class PilotoService {
   }
 
   public deleteItem(piloto: Piloto): Observable<void> {
-    return this.http.delete<void>(`${this.urlBase}/${piloto.id}`, this.httpOptions);
+    return this.http.delete<void>(`${this.urlBase}/${piloto.id}`, this.getHttpOptions());
   }
 
   public setPilotoselecionado(piloto: Piloto) {
@@ -79,14 +82,7 @@ export class PilotoService {
       .subscribe(pilotos => this.pilotoSubject.next(pilotos));
     return this.pilotoSubject.asObservable();
   }
-
-  public getPilotosByTamanho(tamInicial: number, tamFinal: number): Observable<Piloto[]> {
-    let url = `${this.urlBase}/tamanho/${tamInicial}/${tamFinal}`;
-    this.http.get<Piloto[]>(url)
-      .subscribe(pilotos => this.pilotoSubject.next(pilotos));
-    return this.pilotoSubject.asObservable();
-  }
-
+  
   getPilotosByPais(idPais: number): Observable<Piloto[]> {
     const url = `${this.urlBase}/pais/${idPais}`;
     return this.http.get<Piloto[]>(url);

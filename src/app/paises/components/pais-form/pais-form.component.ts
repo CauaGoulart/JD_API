@@ -40,8 +40,8 @@ export class PaisFormComponent {
   }
 
   ngOnInit(): void {
-    this.service.Countryselecionado.subscribe(country => {
-      this.country = country;
+    this.service.Countryselecionado.subscribe((data) => {
+      this.country = data;
     });
   }
 
