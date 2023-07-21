@@ -2,8 +2,6 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { Corrida } from '../models/corrida';
-import { CampeonatoService } from '../../campeonatos/service/campeonato.service';
-import { Campeonato } from '../../campeonatos/models/campeonato';
 import { LoginService } from '../../login/service/login.service';
 
 @Injectable({
@@ -14,6 +12,8 @@ export class CorridaService {
   public selectCorridaEvent = new EventEmitter();
   private corridasSubject = new Subject<Corrida[]>();
   public corridaSubject = new Subject<Corrida>();
+  public updateTableEvent = new EventEmitter<void>();
+  public corridaSelecionado = new EventEmitter<Corrida>();
 
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
@@ -57,6 +57,7 @@ export class CorridaService {
     return this.http.post<Corrida>(this.urlBase, JSON.stringify(corrida), this.getHttpOptions())
     .pipe(tap(() => {
       this.listAll();
+      this.updateTableEvent.emit();
     }));
   }
 
@@ -64,14 +65,23 @@ export class CorridaService {
     return this.http.put<Corrida>(`${this.urlBase}/${corrida.id}`, JSON.stringify(corrida), this.getHttpOptions())
     .pipe(tap(() => {
       this.listAll();
+      this.updateTableEvent.emit();
     }));
   }
 
-  public delete(corrida: Corrida): Observable<void>{
+  public deleteItem(corrida: Corrida): Observable<void>{
     return this.http.delete<void>(`${this.urlBase}/${corrida.id}`, this.getHttpOptions());
   }
 
   public getCorridaSelect(corrida: Corrida){
     this.selectCorridaEvent.emit(corrida); 
+  }
+
+  public setCorridaSelecionado(corrida: Corrida) {
+    this.corridaSelecionado.emit(corrida);
+  }
+
+  public getCorridaSubject(): Observable<Corrida[]> {
+    return this.corridasSubject.asObservable();
   }
 }

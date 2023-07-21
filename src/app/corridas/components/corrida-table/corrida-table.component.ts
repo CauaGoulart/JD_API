@@ -23,7 +23,7 @@ export class CorridaTableComponent implements OnInit {
       });
     });
 
-    this.service.getCorridasSubject().subscribe((corridas) => {
+    this.service.getCorridaSubject().subscribe((corridas) => {
       this.corridas = corridas;
     });
   }
@@ -38,7 +38,7 @@ export class CorridaTableComponent implements OnInit {
   }
 
   public setCorridaselecionada(corrida: any) {
-    this.service.setCorridaselecionada(corrida);
+    this.service.setCorridaSelecionado(corrida);
 
   }
 

@@ -19,7 +19,7 @@ export class LoginService {
 
   public getToken(login: Login): Observable<string>{
     console.log("Entrou");
-    let url = "http://localhost:8099/auth/token";
+    let url = "http://localhost:8080/auth/token";
     return this.http.post<string>(url, login, this.httpOptions).pipe(
       tap((data) => {
         this.token += data;

@@ -4,14 +4,14 @@
 
     <div class="form-input">
         <label for="email">E-mail:</label>
-        <input id="email" [(ngModel)]="user.email">
+        <input id="email" [(ngModel)]="login.email">
     </div>
 
     <div class="form-input">
         <label for="senha">Senha:</label>
-        <input id="senha" type="password" [(ngModel)]="user.password">
+        <input id="senha" type="password" [(ngModel)]="login.password">
     </div>
     <br>
 
-    <button class="save" (click)="loginUser()">Logar</button>
+    <button class="save" (click)="getToken()">Logar</button>
 </div>
