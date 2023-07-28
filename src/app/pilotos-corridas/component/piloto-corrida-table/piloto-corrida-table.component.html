@@ -1,1 +1,21 @@
-<p>piloto-corrida-table works!</p>
+<div class="tabela">
+    <table border="1" cellSpacing="0" width="80%">
+        <tr>
+            <th>Piloto</th>
+            <th>Corrida</th>
+        </tr>
+        <tr *ngFor="let p of pilotos; let i = index">
+            <td>{{p.name}}</td>
+            <!-- <td>{{p.corrida.name}}</td> -->
+            <td>
+                <button class="editar" (click)="setPilotoselecionado(p)">
+                    editar
+                </button>
+                <button class="deletar" (click)="deleteItem(p)">
+                    deletar
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</div>
